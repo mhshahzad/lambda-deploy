@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,11 @@
   },
   "homepage": "https://github.com/mhshahzad/lambda-deploy#readme",
   "dependencies": {
-    "@types/node": "^20.12.4",
-    "commander": "^12.0.0"
+    "commander": "^12.0.0",
+    "enquirer": "^2.4.1"
   },
   "devDependencies": {
+    "@types/node": "^20.12.4",
     "typescript": "^5.4.3"
   }
 }
