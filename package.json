@@ -1,0 +1,27 @@
+{
+  "name": "lambda-deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mhshahzad/lambda-deploy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mhshahzad/lambda-deploy/issues"
+  },
+  "homepage": "https://github.com/mhshahzad/lambda-deploy#readme",
+  "dependencies": {
+    "@types/node": "^20.12.4",
+    "commander": "^12.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.3"
+  }
+}
