@@ -1,0 +1,35 @@
+{
+  "functionName": "MyLambdaFunction",
+  "handler": "index.handler",
+  "runtime": "nodejs14.x",
+  "memorySize": 512,
+  "timeout": 30,
+  "environmentVariables": {
+    "ENVIRONMENT": "production",
+    "API_KEY": "abc123"
+  },
+  "role": "arn:aws:iam::123456789012:role/lambda-role",
+  "sourceCodePath": "path/to/lambda-function.zip",
+  "dependencies": ["aws-sdk", "axios"],
+  "events": [
+    {
+      "type": "api",
+      "properties": {
+        "path": "/hello",
+        "method": "GET"
+      }
+    },
+    {
+      "type": "s3",
+      "properties": {
+        "bucket": "myBucket",
+        "event": "s3:ObjectCreated:*",
+        "rules": [
+          {
+            "prefix": "uploads/"
+          }
+        ]
+      }
+    }
+  ]
+}

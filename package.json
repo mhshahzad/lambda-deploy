@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/mhshahzad/lambda-deploy#readme",
   "dependencies": {
+    "aws-cdk-lib": "^2.135.0",
     "commander": "^12.0.0",
     "enquirer": "^2.4.1"
   },

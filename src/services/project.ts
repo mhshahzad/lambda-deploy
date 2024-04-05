@@ -1,56 +1,39 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-export function initializeProject(name: string, runtime: string, directory: string, author: string) {
-    // Default directory to current directory if not provided
-    directory = directory || process.cwd();
+export const initializeProject = (name: string, runtime: string, directory: string = process.cwd(), author: string) => {
+    const writeJsonFile = (filename: string, content: object) => {
+        fs.writeFileSync(path.join(directory, filename), JSON.stringify(content, null, 2));
+    };
 
+    const srcDir = path.join(directory, 'src');
     // Create directory if it doesn't exist
-    if (!fs.existsSync(directory)) {
-        fs.mkdirSync(directory, { recursive: true });
-    }
+    fs.mkdirSync(srcDir, { recursive: true });
 
     // Create package.json file
-    const packageJsonContent = {
-        name: name,
+    writeJsonFile('package.json', {
+        name,
         version: '1.0.0',
         description: 'AWS Lambda function',
         main: 'index.js',
-        scripts: {
-            test: 'echo "Error: no test specified" && exit 1'
-        },
+        scripts: { test: 'echo "Error: no test specified" && exit 1' },
         author,
         license: 'ISC',
-        dependencies: {
-            // Add dependencies as needed
-        },
-        // Specify the runtime environment
-        engines: {
-            node: runtime
-        }
-    };
-    fs.writeFileSync(path.join(directory, 'package.json'), JSON.stringify(packageJsonContent, null, 2));
+        engines: { node: runtime }
+    });
 
     // Create TypeScript configuration file
-    const tsconfigContent = {
+    writeJsonFile('tsconfig.json', {
         compilerOptions: {
             target: 'ESNext',
             module: 'CommonJS',
             outDir: './dist',
             strict: true
         }
-    };
-    fs.writeFileSync(path.join(directory, 'tsconfig.json'), JSON.stringify(tsconfigContent, null, 2));
+    });
 
     // Create index.ts file
-    const indexTsContent = `
-    // Your Lambda function code goes here
-    // Example:
-    // export async function handler(event: any) {
-    //   // Your Lambda function logic
-    // }
-  `;
-    fs.writeFileSync(path.join(directory, 'index.ts'), indexTsContent);
-
-    console.log(`Lambda function project "${name}" initialized in ${directory}`);
+    fs.writeFileSync(path.join(srcDir, 'index.ts'), `export const handler = async (event: any) => {
+          // Your Lambda function logic
+          }`);
 }
