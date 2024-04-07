@@ -12,6 +12,7 @@ interface InitCommandOptions {
   memorySize: number;
   timeout: number;
   setEnvVariables: boolean;
+  arn: string;
 }
 
 export const interactivePrompt = async () => {
@@ -51,7 +52,6 @@ export const interactivePrompt = async () => {
         "Do you want to set environment variables for the Lambda function?",
       initial: false,
     },
-
     {
       type: "input",
       name: "directory",
@@ -62,6 +62,11 @@ export const interactivePrompt = async () => {
       type: "input",
       name: "author",
       message: "Name of the Author:",
+    }, 
+    {
+      type: "input",
+      name: "arn",
+      message: "Enter the ARN of the role to be assumed by the Lambda function:",
     },
   ]);
 };
@@ -85,9 +90,9 @@ const initCommand = new Command("init")
           environmentVariables: {},
           dependencies: [],
           events: [],
-          handler: "",
-          role: "",
-          sourceCodePath: "",
+          handler: "index.handler",
+          role: value.arn,
+          sourceCodePath: "./build/app/main.js",
         },
         value.directory,
       );
